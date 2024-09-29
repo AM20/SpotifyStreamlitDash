@@ -4,10 +4,15 @@ from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
 import plotly.graph_objects as go
 
-# Spotify API setup
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="7bc98e398d8e4718bff429eec9a86c2c",
-                                               client_secret="095d77a7d203408c8aefe3cfdccc90b3",
-                                               redirect_uri="http://localhost:8888/callback",
+# Get the secrets from Streamlit's secrets management
+client_id = st.secrets["client_id"]
+client_secret = st.secrets["client_secret"]
+redirect_uri = st.secrets["redirect_uri"]
+
+# Set up Spotify OAuth with the secrets
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
+                                               client_secret=client_secret,
+                                               redirect_uri=redirect_uri,
                                                scope="user-library-read",
                                                cache_path=".spotify_cache"))
 
